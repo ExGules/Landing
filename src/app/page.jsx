@@ -2,26 +2,26 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
-const Button = ({ children, className="", ...props }) => (
+const Button = ({ children, className = "", ...props }) => (
   <button className={`px-6 py-3 rounded-2xl font-medium ${className}`} {...props}>
     {children}
   </button>
 );
 
-const Card = ({ children, className="" }) => (
+const Card = ({ children, className = "" }) => (
   <div className={`rounded-3xl border ${className}`}>{children}</div>
 );
 
-const CardContent = ({ children, className="" }) => (
+const CardContent = ({ children, className = "" }) => (
   <div className={className}>{children}</div>
 );
 
 const Input = (props) => (
-  <input {...props} className={`w-full px-4 py-3 rounded-xl ${props.className}`} />
+  <input {...props} className={`w-full px-4 py-3 rounded-xl ${props.className || ""}`} />
 );
 
 const Textarea = (props) => (
-  <textarea {...props} className={`w-full px-4 py-3 rounded-xl ${props.className}`} />
+  <textarea {...props} className={`w-full px-4 py-3 rounded-xl ${props.className || ""}`} />
 );
 
 export default function Landing2026() {
@@ -85,8 +85,14 @@ export default function Landing2026() {
       />
 
       {/* background glow */}
-      <motion.div style={{ y: y1 }} className="absolute w-[600px] h-[600px] bg-purple-600/30 blur-[140px] rounded-full -top-40 -left-40" />
-      <motion.div style={{ y: y2 }} className="absolute w-[600px] h-[600px] bg-blue-600/30 blur-[140px] rounded-full -bottom-40 -right-40" />
+      <motion.div
+        style={{ y: y1 }}
+        className="absolute w-[600px] h-[600px] bg-purple-600/30 blur-[140px] rounded-full -top-40 -left-40"
+      />
+      <motion.div
+        style={{ y: y2 }}
+        className="absolute w-[600px] h-[600px] bg-blue-600/30 blur-[140px] rounded-full -bottom-40 -right-40"
+      />
 
       {/* header */}
       <header className="flex justify-between items-center px-6 py-6 max-w-6xl mx-auto">
@@ -144,17 +150,68 @@ export default function Landing2026() {
           "48 часов запуск",
           "SEO оптимизация",
           "Адаптив под мобильные",
-          "Под ключ"
+          "Под ключ",
         ].map((t, i) => (
-          <motion.div
-            key={i}
-            whileHover={{ scale: 1.05, rotateX: 3, rotateY: -3 }}
-          >
+          <motion.div key={i} whileHover={{ scale: 1.05, rotateX: 3, rotateY: -3 }}>
             <Card className="bg-white/5 border-white/10 backdrop-blur-xl">
               <CardContent className="p-8 text-xl">{t}</CardContent>
             </Card>
           </motion.div>
         ))}
+      </section>
+
+      {/* portfolio devices */}
+      <section className="px-6 py-24 max-w-6xl mx-auto text-center">
+        <h2 className="text-4xl font-bold mb-12">Примеры работ NSKras</h2>
+
+        <div className="relative flex justify-center items-center">
+          {/* laptop */}
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 6, repeat: Infinity }}
+            className="relative w-[600px] h-[360px] bg-black rounded-2xl border border-white/20 shadow-2xl overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-blue-600/20" />
+
+            <div className="p-4 space-y-2">
+              <div className="h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded" />
+              <div className="grid grid-cols-3 gap-2">
+                <div className="h-24 bg-white/10 rounded" />
+                <div className="h-24 bg-white/10 rounded" />
+                <div className="h-24 bg-white/10 rounded" />
+              </div>
+              <div className="h-20 bg-white/10 rounded" />
+            </div>
+          </motion.div>
+
+          {/* phone */}
+          <motion.div
+            animate={{ rotate: [-6, 6, -6] }}
+            transition={{ duration: 6, repeat: Infinity }}
+            className="absolute -left-10 bottom-0 w-[140px] h-[260px] bg-black rounded-[28px] border border-white/20 shadow-2xl overflow-hidden"
+          >
+            <div className="p-2 space-y-2">
+              <div className="h-6 bg-purple-500/40 rounded" />
+              <div className="h-16 bg-white/10 rounded" />
+              <div className="h-8 bg-blue-500/40 rounded" />
+            </div>
+          </motion.div>
+
+          {/* tablet */}
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 5, repeat: Infinity }}
+            className="absolute -right-10 bottom-0 w-[260px] h-[200px] bg-black rounded-2xl border border-white/20 shadow-2xl overflow-hidden"
+          >
+            <div className="p-3 space-y-2">
+              <div className="h-8 bg-blue-500/40 rounded" />
+              <div className="grid grid-cols-2 gap-2">
+                <div className="h-16 bg-white/10 rounded" />
+                <div className="h-16 bg-white/10 rounded" />
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* reviews */}
@@ -165,7 +222,7 @@ export default function Landing2026() {
           {[
             "Получил 14 заявок за первый день. Сайт окупился сразу.",
             "Очень быстро сделали лендинг. Клиенты начали писать в тот же день.",
-            "Конверсия выросла в 3 раза. Рекомендую NSKras."
+            "Конверсия выросла в 3 раза. Рекомендую NSKras.",
           ].map((text, i) => (
             <Card key={i} className="bg-white/5 border-white/10 backdrop-blur-xl">
               <CardContent className="p-6">
@@ -178,9 +235,7 @@ export default function Landing2026() {
 
       {/* CTA */}
       <section className="px-6 py-32 text-center">
-        <h2 className="text-5xl font-bold">
-          Готовы получить клиентов?
-        </h2>
+        <h2 className="text-5xl font-bold">Готовы получить клиентов?</h2>
 
         <Button
           onClick={() => setOpen(true)}
@@ -194,7 +249,14 @@ export default function Landing2026() {
       <AnimatePresence>
         {open && (
           <motion.div className="fixed inset-0 bg-black/70 flex items-center justify-center">
-            <motion.div className="bg-white/10 backdrop-blur-2xl p-8 rounded-3xl w-[420px]">
+            <motion.div className="bg-white/10 backdrop-blur-2xl p-8 rounded-3xl w-[420px] relative">
+              <button
+                onClick={() => setOpen(false)}
+                className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20"
+              >
+                ✕
+              </button>
+
               <h3 className="text-2xl font-bold mb-4">Оставить заявку</h3>
 
               <form onSubmit={handleSubmit} className="space-y-3">
@@ -221,6 +283,14 @@ export default function Landing2026() {
 
                 <Button className="w-full bg-gradient-to-r from-purple-500 to-blue-500">
                   Отправить заявку
+                </Button>
+
+                <Button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="w-full bg-white/10"
+                >
+                  Закрыть
                 </Button>
               </form>
             </motion.div>
